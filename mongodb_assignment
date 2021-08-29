@@ -1,0 +1,124 @@
+"""Question:create database and collection like Student and Address details having specified conditions
+while creating collection: 
+	1. capped to true
+	2. columns:
+		1. name: ""
+		2. dept: ""
+		3. college: ""
+		4. address: [ objectId ]
+		5. collge_addres: {}
+		6. mark: [1,2,3,4]
+		7. grade: ""
+
+address: 
+1. no
+2. street
+3. district
+4. state"""
+
+
+> show databases
+Learining  0.000GB
+admin      0.000GB
+config     0.000GB
+local      0.000GB
+> use Learning
+switched to db Learning
+> db
+Learning
+> show collections
+> db.createCollection("Student",{capped: true, size:2000, max:10})
+{ "ok" : 1 }
+> show collections
+Student
+> db.createCollection("Address_Details")
+{ "ok" : 1 }
+> show collections
+Address_Details
+Student
+> db.Address_Details.insert({"ward_no":"#24", "Street":"kotte", "District":"kolar", "State":"Karnataka"})
+WriteResult({ "nInserted" : 1 })
+> db.Address_Details.insert({"ward_no":"#02", "Street":"Kuda layout", "District":"Ananthapur", "State":"Andrapradesh"})
+WriteResult({ "nInserted" : 1 })
+> db.Address_Details.insert({"ward_no":"#12", "Street":"Kempegowda layout", "District":"Chennai", "State":"Tamilnadu"})
+WriteResult({ "nInserted" : 1 })
+> db.Address_Details.find().pretty()
+{
+        "_id" : ObjectId("612b96a2951eab6c11892183"),
+        "ward_no" : "#24",
+        "Street" : "kotte",
+        "District" : "kolar",
+        "State" : "Karnataka"
+}
+{
+        "_id" : ObjectId("612b96ee951eab6c11892184"),
+        "ward_no" : "#02",
+        "Street" : "Kuda layout",
+        "District" : "Ananthapur",
+        "State" : "Andrapradesh"
+}
+{
+        "_id" : ObjectId("612b96fd951eab6c11892185"),
+        "ward_no" : "#12",
+        "Street" : "Kempegowda layout",
+        "District" : "Chennai",
+        "State" : "Tamilnadu"
+}
+> db.Student.insert({"Name": "Ashwini", "Dept":"CSE","College":"CBIT", "Address":[ObjectId("612b96a2951eab6c11892183")],"College_address":"Kolar","Mark":[450,500,550,540],"Grade":"A"})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({"Name": "Vidhya", "Dept":"IT","College":"TTIT", "Address":[ObjectId("612b96a2951eab6c11892184")],"College_address":"KGF","Mark":[550,480,450,510],"Grade":"A"})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({"Name": "Kavya", "Dept":"Mech","College":"SJBIT", "Address":[ObjectId("612b96a2951eab6c11892185")],"College_address":"Ckikkabalapur","Mark":[450,410,450,400],"Grade":"B"})
+WriteResult({ "nInserted" : 1 })
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("612b9801951eab6c11892186"),
+        "Name" : "Ashwini",
+        "Dept" : "CSE",
+        "College" : "CBIT",
+        "Address" : [
+                ObjectId("612b96a2951eab6c11892183")
+        ],
+        "College_address" : "Kolar",
+        "Mark" : [
+                450,
+                500,
+                550,
+                540
+        ],
+        "Grade" : "A"
+}
+{
+        "_id" : ObjectId("612b9830951eab6c11892187"),
+        "Name" : "Vidhya",
+        "Dept" : "IT",
+        "College" : "TTIT",
+        "Address" : [
+                ObjectId("612b96a2951eab6c11892184")
+        ],
+        "College_address" : "KGF",
+        "Mark" : [
+                550,
+                480,
+                450,
+                510
+        ],
+        "Grade" : "A"
+}
+{
+        "_id" : ObjectId("612b9854951eab6c11892188"),
+        "Name" : "Kavya",
+        "Dept" : "Mech",
+        "College" : "SJBIT",
+        "Address" : [
+                ObjectId("612b96a2951eab6c11892185")
+        ],
+        "College_address" : "Ckikkabalapur",
+        "Mark" : [
+                450,
+                410,
+                450,
+                400
+        ],
+        "Grade" : "B"
+}
